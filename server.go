@@ -5,21 +5,24 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
-const port = ":5500"
-
 func main() {
+	port := os.Getenv("PORT")
 
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 	router := mux.NewRouter()
 	router.HandleFunc("/", rootPage)
 	router.HandleFunc("/products/{fetchCountPercentage}", products).Methods("GET")
 
 	fmt.Println("Serving @ 127.0.0.1" + port)
-	log.Fatal(http.ListenAndServe(port, router))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 
 }
 
