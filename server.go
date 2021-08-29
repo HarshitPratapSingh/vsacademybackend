@@ -20,7 +20,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", rootPage)
 	router.HandleFunc("/products/{fetchCountPercentage}", products).Methods("GET")
-
+	fmt.Println("Hello every one")
 	fmt.Println("Serving @ 127.0.0.1" + port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 
